@@ -4,10 +4,10 @@ import { render } from 'react-dom';
 import Main from './Main';
 
 window.DatoCmsPlugin.init((plugin) => {
-  plugin.startAutoResizer();
+    plugin.startAutoResizer();
 
-  const container = document.createElement('div');
-  document.body.appendChild(container);
+    const container = document.createElement('div');
+    document.body.appendChild(container);
 
-  render(<Main plugin={plugin} />, container);
+    render(<Main plugin={plugin} />, container);
 });
