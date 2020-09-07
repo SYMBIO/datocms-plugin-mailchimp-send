@@ -42,13 +42,13 @@ export default class Main extends Component {
         if (campaign && campaign.status === 'schedule') {
             window.setTimeout(() => {
                 this.updateCampaignInfo();
-            }, 3000);
+            }, 10000);
         }
 
         if (campaign && campaign.status === 'sending') {
             window.setTimeout(() => {
                 this.updateCampaignInfo();
-            }, 3000);
+            }, 10000);
         }
     }
 
@@ -69,7 +69,7 @@ export default class Main extends Component {
 
     async sendTest() {
         const {
-            setFieldValue, saveCurrentItem, notice, alert,
+            fieldValue, setFieldValue, saveCurrentItem, notice, alert,
         } = this.props;
 
         this.setState({
@@ -93,8 +93,12 @@ export default class Main extends Component {
                     campaign: json.campaign,
                 },
                 () => {
-                    setFieldValue(JSON.stringify(this.state));
-                    saveCurrentItem();
+                    const oldValue = fieldValue;
+                    const newValue = JSON.stringify(this.state);
+                    setFieldValue(newValue);
+                    if (newValue !== oldValue) {
+                        saveCurrentItem();
+                    }
                     notice('Aktualita byla poslána na zadané testovací e-maily');
                 },
             );
@@ -165,18 +169,22 @@ export default class Main extends Component {
                 campaign: json.campaign,
             },
             () => {
-                setFieldValue(JSON.stringify(this.state));
-                saveCurrentItem();
+                const oldValue = fieldValue;
+                const newValue = JSON.stringify(this.state);
+                setFieldValue(newValue);
+                if (newValue !== oldValue) {
+                    saveCurrentItem();
+                }
                 if (json.campaign && json.campaign.status === 'schedule') {
                     window.setTimeout(() => {
                         this.updateCampaignInfo();
-                    }, 3000);
+                    }, 10000);
                 }
 
                 if (json.campaign && json.campaign.status === 'sending') {
                     window.setTimeout(() => {
                         this.updateCampaignInfo();
-                    }, 3000);
+                    }, 10000);
                 }
             },
         );
