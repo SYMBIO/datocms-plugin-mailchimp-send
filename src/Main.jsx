@@ -59,7 +59,7 @@ export default class Main extends Component {
         });
 
         try {
-            const response = await fetch('http://localhost:3000/api/newsletter/sendTest', {
+            const response = await fetch('https://www.vinazmoravyvinazcech.cz/api/newsletter/sendTest', {
                 method: 'POST',
                 mode: 'cors',
                 cache: 'no-cache',
@@ -104,7 +104,7 @@ export default class Main extends Component {
 
     async send() {
         const { itemId, getFieldValue, locale } = this.props;
-        const response = await fetch('http://localhost:3000/api/newsletter/sendNews', {
+        const response = await fetch('http://www.vinazmoravyvinazcech.cz/api/newsletter/sendNews', {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -138,7 +138,7 @@ export default class Main extends Component {
         const { setFieldValue, saveCurrentItem } = this.props;
         // eslint-disable-next-line react/destructuring-assignment
         const fieldValue = JSON.parse(this.props.fieldValue);
-        const response = await fetch(`http://localhost:3000/api/newsletter/getCampaign?id=${fieldValue.campaign.id}`, {
+        const response = await fetch(`https://www.vinazmoravyvinazcech.cz/api/newsletter/getCampaign?id=${fieldValue.campaign.id}`, {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache',
