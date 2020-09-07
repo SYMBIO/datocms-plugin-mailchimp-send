@@ -111,7 +111,7 @@ export default class Main extends Component {
     }
 
     async send() {
-        const { alert } = this.props;
+        const { notice, alert } = this.props;
 
         this.setState({
             sending: true,
@@ -128,6 +128,7 @@ export default class Main extends Component {
                 body: this.getBody(),
             });
             const json = await response.json();
+            notice('Aktualita byla zařazena k rozeslání');
             this.setState(
                 {
                     campaign: json.campaign,
