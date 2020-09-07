@@ -23,6 +23,7 @@ export default class Main extends Component {
         const fieldValue = JSON.parse(props.fieldValue);
         this.state = {
             sendingTest: false,
+            sending: false,
             test_emails: (fieldValue && fieldValue.test_emails) || '',
             segment:
                 (fieldValue &&
@@ -106,34 +107,51 @@ export default class Main extends Component {
 
     async send() {
         const { itemId, getFieldValue, locale } = this.props;
-        const response = await fetch(`${BASE_URL}/api/newsletter/sendNews`, {
-            method: 'POST',
-            mode: 'cors',
-            cache: 'no-cache',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                ...this.state,
-                data: {
-                    id: itemId,
-                    title: getFieldValue(`title.${locale}`),
-                    slug: getFieldValue(`slug.${locale}`),
-                    perex: getFieldValue(`perex.${locale}`),
-                    image: getFieldValue('image'),
-                    date: getFieldValue('date_from'),
-                },
-            }),
+
+        this.setState({
+            sending: true,
         });
-        const json = await response.json();
-        this.setState(
-            {
-                campaign: json.campaign,
-            },
-            () => {
-                this.updateCampaignInfo();
-            },
-        );
+
+        try {
+            const response = await fetch(`${BASE_URL}/api/newsletter/sendNews`, {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ...this.state,
+                    data: {
+                        id: itemId,
+                        title: getFieldValue(`title.${locale}`),
+                        slug: getFieldValue(`slug.${locale}`),
+                        perex: getFieldValue(`perex.${locale}`),
+                        image: getFieldValue('image'),
+                        date: getFieldValue('date_from'),
+                    },
+                }),
+            });
+            const json = await response.json();
+            this.setState(
+                {
+                    campaign: json.campaign,
+                    sending: false,
+                },
+                () => {
+                    this.updateCampaignInfo();
+                },
+            );
+        } catch (e) {
+            this.setState(
+                {
+                    sending: false,
+                },
+                () => {
+                    alert('Aktualitu se nepodařilo rozeslat');
+                },
+            );
+        }
     }
 
     async updateCampaignInfo() {
@@ -274,7 +292,7 @@ export default class Main extends Component {
     renderControls() {
         const { setFieldValue, saveCurrentItem } = this.props;
         const {
-            test_emails, segment, campaign, sendingTest,
+            test_emails, segment, campaign, sending, sendingTest,
         } = this.state;
 
         if (campaign && campaign.status !== 'save') {
@@ -341,6 +359,7 @@ export default class Main extends Component {
                             type="button"
                             className="DatoCMS-button DatoCMS-button--alert"
                             onClick={() => this.send()}
+                            disabled={sending}
                         >
                             Odeslat na vybraný seznam
                         </button>
