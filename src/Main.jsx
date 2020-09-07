@@ -52,9 +52,24 @@ export default class Main extends Component {
         }
     }
 
+    getBody() {
+        const { itemId, getFieldValue, locale } = this.props;
+        return JSON.stringify({
+            ...this.state,
+            data: {
+                id: itemId,
+                title: getFieldValue(`title.${locale}`),
+                slug: getFieldValue(`slug.${locale}`),
+                perex: getFieldValue(`perex.${locale}`),
+                image: getFieldValue('image').upload_id,
+                date: getFieldValue('date_from'),
+            },
+        });
+    }
+
     async sendTest() {
         const {
-            itemId, getFieldValue, setFieldValue, saveCurrentItem, locale, notice, alert,
+            setFieldValue, saveCurrentItem, notice, alert,
         } = this.props;
 
         this.setState({
@@ -69,17 +84,7 @@ export default class Main extends Component {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    ...this.state,
-                    data: {
-                        id: itemId,
-                        title: getFieldValue(`title.${locale}`),
-                        slug: getFieldValue(`slug.${locale}`),
-                        perex: getFieldValue(`perex.${locale}`),
-                        image: getFieldValue('image').upload_id,
-                        date: getFieldValue('date_from'),
-                    },
-                }),
+                body: this.getBody(),
             });
             const json = await response.json();
             this.setState(
@@ -106,7 +111,7 @@ export default class Main extends Component {
     }
 
     async send() {
-        const { itemId, getFieldValue, locale } = this.props;
+        const { alert } = this.props;
 
         this.setState({
             sending: true,
@@ -120,17 +125,7 @@ export default class Main extends Component {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    ...this.state,
-                    data: {
-                        id: itemId,
-                        title: getFieldValue(`title.${locale}`),
-                        slug: getFieldValue(`slug.${locale}`),
-                        perex: getFieldValue(`perex.${locale}`),
-                        image: getFieldValue('image').upload_id,
-                        date: getFieldValue('date_from'),
-                    },
-                }),
+                body: this.getBody(),
             });
             const json = await response.json();
             this.setState(
