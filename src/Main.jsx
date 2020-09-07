@@ -127,7 +127,7 @@ export default class Main extends Component {
                         title: getFieldValue(`title.${locale}`),
                         slug: getFieldValue(`slug.${locale}`),
                         perex: getFieldValue(`perex.${locale}`),
-                        image: getFieldValue('image'),
+                        image: getFieldValue('image').upload_id,
                         date: getFieldValue('date_from'),
                     },
                 }),
