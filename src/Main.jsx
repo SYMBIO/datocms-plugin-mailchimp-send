@@ -108,7 +108,7 @@ export default class Main extends Component {
                     sendingTest: false,
                 },
                 () => {
-                    alert('Aktualitu se npodařilo odeslat na zadané testovací e-maily');
+                    alert('Aktualitu se nepodařilo odeslat na zadané testovací e-maily');
                 },
             );
         }
