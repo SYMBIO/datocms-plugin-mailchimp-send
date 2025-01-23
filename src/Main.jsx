@@ -133,7 +133,6 @@ class Main extends Component {
             });
             const json = await response.json();
             notice('Aktualita byla zařazena k rozeslání');
-            console.log('json', json);
             this.setState(
                 {
                     campaign: json.campaign,
@@ -159,7 +158,6 @@ class Main extends Component {
         const { setFieldValue, saveCurrentItem } = this.props;
         // eslint-disable-next-line react/destructuring-assignment
         const fieldValue = JSON.parse(this.props.fieldValue);
-        console.log('fieldValue', fieldValue, this.state);
         const response = await fetch(`${BASE_URL}/api/newsletter/getCampaign?id=${fieldValue?.campaign?.id || this.state.campaign?.id}`, {
             method: 'GET',
             mode: 'cors',
@@ -289,7 +287,7 @@ class Main extends Component {
                                 Aktualizovat statistiky
                             </button>
                             <button type="button" className="DatoCMS-button" style={{ marginLeft: '10px'}} onClick={() => { this.setState({ ...this.state, campaign: null }); this.props.saveCurrentItem(); }}>
-                                Resetovat odeslání
+                                Resetovat rozesílku
                             </button>
                         </div>
                     </div>
