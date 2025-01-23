@@ -288,7 +288,7 @@ class Main extends Component {
                             <button type="button" className="DatoCMS-button" onClick={() => this.updateCampaignInfo()}>
                                 Aktualizovat statistiky
                             </button>
-                            <button type="button" className="DatoCMS-button" onClick={() => { this.setState({ ...this.state, campaign: null }); saveCurrentItem(); }}>
+                            <button type="button" className="DatoCMS-button" style={{ marginLeft: '10px'}} onClick={() => { this.setState({ ...this.state, campaign: null }); saveCurrentItem(); }}>
                                 Resetovat odeslání
                             </button>
                         </div>
