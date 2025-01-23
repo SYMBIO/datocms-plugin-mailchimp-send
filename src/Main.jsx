@@ -133,6 +133,7 @@ export default class Main extends Component {
             });
             const json = await response.json();
             notice('Aktualita byla zařazena k rozeslání');
+            console.log('json', json);
             this.setState(
                 {
                     campaign: json.campaign,
@@ -158,7 +159,8 @@ export default class Main extends Component {
         const { setFieldValue, saveCurrentItem } = this.props;
         // eslint-disable-next-line react/destructuring-assignment
         const fieldValue = JSON.parse(this.props.fieldValue);
-        const response = await fetch(`${BASE_URL}/api/newsletter/getCampaign?id=${fieldValue.campaign.id}`, {
+        console.log(fieldValue, this.state);
+        const response = await fetch(`${BASE_URL}/api/newsletter/getCampaign?id=${fieldValue?.campaign?.id || this.state.campaign?.id}`, {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache',
