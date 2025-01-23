@@ -20,12 +20,6 @@ module.exports = {
         rules: [
             {
                 test: /\.jsx?$/,
-                include: `${__dirname}/src`,
-                loader: 'eslint-loader',
-                enforce: 'pre',
-            },
-            {
-                test: /\.jsx?$/,
                 exclude: /(node_modules|bower_components)/,
                 use: { loader: 'babel-loader' },
             },

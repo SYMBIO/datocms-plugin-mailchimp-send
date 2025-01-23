@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Cookie from 'js-cookie';
 
 import connectToDatoCms from './connectToDatoCms';
-import './style.sass';
+// import './style.sass';
 
 const BASE_URL = 'https://www.vinazmoravyvinazcech.cz';
 
@@ -17,7 +17,7 @@ const BASE_URL = 'https://www.vinazmoravyvinazcech.cz';
     alert: plugin.alert,
     locale: plugin.locale,
 }))
-export default class Main extends Component {
+class Main extends Component {
     constructor(props) {
         super(props);
         const fieldValue = JSON.parse(props.fieldValue);
@@ -395,3 +395,5 @@ Main.propTypes = {
     alert: PropTypes.func,
     locale: PropTypes.string,
 };
+
+export default Main;
