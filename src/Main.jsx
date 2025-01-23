@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Cookie from 'js-cookie';
 
 import connectToDatoCms from './connectToDatoCms';
-// import './style.sass';
+import './style.sass';
 
 const BASE_URL = 'https://www.vinazmoravyvinazcech.cz';
 
