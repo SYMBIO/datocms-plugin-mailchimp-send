@@ -159,7 +159,7 @@ export default class Main extends Component {
         const { setFieldValue, saveCurrentItem } = this.props;
         // eslint-disable-next-line react/destructuring-assignment
         const fieldValue = JSON.parse(this.props.fieldValue);
-        console.log(fieldValue, this.state);
+        console.log('fieldValue', fieldValue, this.state);
         const response = await fetch(`${BASE_URL}/api/newsletter/getCampaign?id=${fieldValue?.campaign?.id || this.state.campaign?.id}`, {
             method: 'GET',
             mode: 'cors',
