@@ -246,9 +246,9 @@ class Main extends Component {
                                 <tr>
                                     <th>Čas odeslání:</th>
                                     <td>
-                                        {new Date(campaign.send_time).toLocaleDateString('cs')}
+                                        {new Date(campaign?.send_time || '').toLocaleDateString('cs')}
                                         {' '}
-                                        {new Date(campaign.send_time).toLocaleTimeString('cs')}
+                                        {new Date(campaign?.send_time || '').toLocaleTimeString('cs')}
                                     </td>
                                 </tr>
                                 <tr>
@@ -284,9 +284,14 @@ class Main extends Component {
                                 </tr>
                             </tbody>
                         </table>
-                        <button type="button" className="DatoCMS-button" onClick={() => this.updateCampaignInfo()}>
-                            Aktualizovat statistiky
-                        </button>
+                        <div className="buttons">
+                            <button type="button" className="DatoCMS-button" onClick={() => this.updateCampaignInfo()}>
+                                Aktualizovat statistiky
+                            </button>
+                            <button type="button" className="DatoCMS-button" onClick={() => this.setState({ ...this.state, campaign: null })}>
+                                Resetovat odeslání
+                            </button>
+                        </div>
                     </div>
                 );
             case 'save':
